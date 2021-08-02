@@ -1,7 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import re
 
+
+def hasNumbers(inputString):
+    return bool(re.search(r'\d', inputString))
 
 class Crawler():
     def __init__(self,url):
@@ -13,12 +17,23 @@ class Crawler():
         self.soup=BeautifulSoup(r.text,'lxml')
 
     def getPrice(self):
-        # for i in self.soup.findAll(class_='hardfacts clear'):
-        #     for k in i.findAll(class_='ng-star-inserted'):
-        #         print(k.text)
-        x=self.soup.findAll('script')[-1].text
-        print([int(s) for s in x.split() if s.isdigit()])
+        for i in self.soup.findAll(class_='hardfacts clear'):
+            for k in i.findAll(class_='ng-star-inserted'):
+                print(k.text)
 
-obj=Crawler(url='https://www.immowelt.de/expose/2228f53')
+
+
+    def getPhoneNumber(self):
+        xd=""
+        for x in self.soup.findAll('script')[-1]:
+            xd=str(x)
+            break
+        x=xd.split(';')
+        for i in x:
+            if sum(k.isdigit() for k in i)>=9 and sum(k.isdigit() for k in i)<=12:
+                print(i)
+                break
+
+obj=Crawler(url='https://www.immowelt.de/expose/2zwwg4f')
 obj.request()
-obj.getPrice()
+obj.getPhoneNumber()
