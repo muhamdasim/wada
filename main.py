@@ -34,7 +34,7 @@ class Crawler():
                 print(i)
                 break
 
-    def print(self):
+    def getBrokerName(self):
         for i in self.soup.findAll(class_="iw_left"):
             x=i.find('p')
             if x is not None:
@@ -43,5 +43,5 @@ class Crawler():
 
 obj=Crawler(url='https://www.immowelt.de/expose/22rm95d')
 obj.request()
-obj.print()
+obj.getBrokerName()
 #hello
