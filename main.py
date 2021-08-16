@@ -34,7 +34,14 @@ class Crawler():
                 print(i)
                 break
 
-obj=Crawler(url='https://www.immowelt.de/expose/2zwwg4f')
+    def print(self):
+        for i in self.soup.findAll(class_="iw_left"):
+            x=i.find('p')
+            if x is not None:
+                if x.find('strong') is not None:
+                    print(x.find('strong').text)
+
+obj=Crawler(url='https://www.immowelt.de/expose/22rm95d')
 obj.request()
-obj.getPhoneNumber()
+obj.print()
 #hello
